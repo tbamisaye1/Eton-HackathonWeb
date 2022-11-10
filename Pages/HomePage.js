@@ -65,10 +65,11 @@ export default function HomePage(props) {
           >
             {(props) => (
               <View>
-                <Text style={{ fontSize: 24 }}>
+                <Text style={{ fontSize: 22 }}>
                   Enter your desired Room Temperature:{" "}
                 </Text>
                 <TextInput
+                  style={{ height: "90%" }}
                   placeholder="Room temperature You want in degrees"
                   onChange={props.handleChange("newRoomTemp")}
                   value={props.values.newRoomTemp}
