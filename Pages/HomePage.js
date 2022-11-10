@@ -6,9 +6,9 @@ import { useState } from "react";
 import { Formik } from "formik";
 import { logToConsole } from "react-native/Libraries/Utilities/RCTLog";
 
-export default function HomePage() {
-  var [pupil, setPupil] = useState();
-  const [roomNo, setRoomNo] = useState(23);
+export default function HomePage(props) {
+  var [pupil, setPupil] = useState(props.loggedInPupil);
+  var [roomNo, setRoomNo] = useState(props.loggedInRoom);
   const [roomTemp, setRoomTemp] = useState(20);
   var [newRoomTemp, setNewRoomTemp] = useState(0);
 
