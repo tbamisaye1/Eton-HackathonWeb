@@ -9,8 +9,10 @@ import { logToConsole } from "react-native/Libraries/Utilities/RCTLog";
 export default function HomePage(props) {
   var [pupil, setPupil] = useState(props.loggedInPupil);
   var [roomNo, setRoomNo] = useState(props.loggedInRoom);
-  const [roomTemp, setRoomTemp] = useState(20);
+  var [roomTemp, setRoomTemp] = useState(20);
+  var [targetRoomTemp, setTargetRoomTemp] = useState(22);
   var [newRoomTemp, setNewRoomTemp] = useState(0);
+  // pupil = "pupil changed inside";
 
   async function sendData() {
     try {
@@ -30,17 +32,19 @@ export default function HomePage(props) {
     } catch (e) {}
   }
 
+  async function receiveData() {}
+
   return (
     <View style={styles.screen}>
       <View style={styles.headerBar}>
         <View style={styles.headerLeft}>
-          <Text style={{ fontSize: 30 }}>{pupil}</Text>
+          <Text style={{ fontSize: 30 }}> Student: {pupil}</Text>
         </View>
         <View style={styles.headerRight}>
           <Text style={{ fontSize: 30 }}> Room: {roomNo}</Text>
         </View>
       </View>
-      <View style={[styles.infoContainer, { backgroundColor: "red" }]}>
+      <View style={[styles.infoContainer, {}]}>
         <View style={styles.tempHeader}>
           <Text style={styles.bigTempText}>Current: {roomTemp}°C</Text>
         </View>
@@ -61,6 +65,9 @@ export default function HomePage(props) {
           >
             {(props) => (
               <View>
+                <Text style={{ fontSize: 24 }}>
+                  Enter your desired Room Temperature:{" "}
+                </Text>
                 <TextInput
                   placeholder="Room temperature You want in degrees"
                   onChange={props.handleChange("newRoomTemp")}
@@ -68,8 +75,9 @@ export default function HomePage(props) {
                 />
 
                 <Button
+                  style={styles.submitButton}
                   title="submit"
-                  color="blue"
+                  // color="blue"
                   onPress={props.handleSubmit}
                 />
               </View>
@@ -81,7 +89,11 @@ export default function HomePage(props) {
             onChangeText={(text) => setNewRoomTemp({ newRoomTemp: text })}
           /> */}
         </View>
-        <View style={styles.infoView}>2</View>
+        <View style={styles.infoView}>
+          <Text style={{ fontSize: 30 }}>
+            Target Room Temperature: {targetRoomTemp} °C
+          </Text>
+        </View>
       </View>
       {/* <View style={styles.container}>
         <AppText>This the Home Page speaking</AppText>
@@ -101,16 +113,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   headerLeft: {
+    margin: 10,
     alignSelf: "flex-start",
-    width: "50%",
-    backgroundColor: "grey",
+    width: "48%",
+    // backgroundColor: "grey",
     alignItems: "flex-start",
     justifyContent: "flex-start",
   },
   headerRight: {
+    margin: 10,
     alignSelf: "flex-end",
-    width: "50%",
-    backgroundColor: "red",
+    width: "48%",
+    // backgroundColor: "red",
     alignItems: "flex-end",
     justifyContent: "flex-end",
   },
@@ -128,16 +142,16 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: "30%",
     width: "100%",
-    backgroundColor: "yellow",
+    // backgroundColor: "yellow",
   },
   infoContainer: {
     height: "45%",
     width: "100%",
-    backgroundColor: "green",
+    // backgroundColor: "green",
   },
   infoView: {
     flex: 1,
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -155,5 +169,9 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: "Inter-Black",
     alignSelf: "center",
+  },
+  submitButton: {
+    borderRadius: 150,
+    color: "grey",
   },
 });
