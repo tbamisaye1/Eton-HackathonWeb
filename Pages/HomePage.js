@@ -10,14 +10,14 @@ import { UserContext } from "../Contexts/UserContext";
 
 export default function HomePage(props) {
   // var
+  const { user, setUser } = useContext(UserContext);
   var data = fakeData;
-  var [pupil, setPupil] = useState(props.loggedInPupil);
+  var [pupil, setPupil] = useState(user);
   var [roomNo, setRoomNo] = useState(props.loggedInRoom);
   var [roomTemp, setRoomTemp] = useState(data.currentTemp);
   var [targetRoomTemp, setTargetRoomTemp] = useState(data.targetTemp);
   var [newRoomTemp, setNewRoomTemp] = useState(0);
   // pupil = "pupil changed inside";
-  const { user, setUser } = useContext(UserContext);
 
   async function sendData() {
     try {

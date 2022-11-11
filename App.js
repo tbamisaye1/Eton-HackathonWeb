@@ -5,17 +5,33 @@ import AppText from "./components/AppText";
 import HomePage from "./Pages/HomePage";
 import { useEffect } from "react";
 import { UserContext } from "./Contexts/UserContext";
+import LoginPage from "./Pages/LogInPage";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [user, setUser] = useState("Hi this is the use state");
   return (
     <UserContext.Provider value={{ user, setUser }}>
-      <View style={styles.container}>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="Home" component={HomePage} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      {/* <View style={styles.container}>
         {/* <AppText>Open up App.js to start working on your app!</AppText> */}
 
-        <StatusBar style="auto" />
-        <HomePage loggedInPupil="John Doe" loggedInRoom={37}></HomePage>
-      </View>
+      {/* <StatusBar style="auto" /> */}
+      {/* <LoginPage></LoginPage> */}
+      {/* <HomePage loggedInPupil="John Doe" loggedInRoom={37}></HomePage> */}
+      {/* </View> */}
     </UserContext.Provider>
   );
 }
