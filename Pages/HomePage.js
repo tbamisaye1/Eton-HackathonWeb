@@ -1,16 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import AppText from "../components/AppText";
+import { fakeData } from "../dataProviders/fakePicoData";
 // import {Formik}
 import { useState } from "react";
 import { Formik } from "formik";
 import { logToConsole } from "react-native/Libraries/Utilities/RCTLog";
 
 export default function HomePage(props) {
+  // var
+  var data = fakeData;
   var [pupil, setPupil] = useState(props.loggedInPupil);
   var [roomNo, setRoomNo] = useState(props.loggedInRoom);
-  var [roomTemp, setRoomTemp] = useState(20);
-  var [targetRoomTemp, setTargetRoomTemp] = useState(22);
+  var [roomTemp, setRoomTemp] = useState(data.currentTemp);
+  var [targetRoomTemp, setTargetRoomTemp] = useState(data.targetTemp);
   var [newRoomTemp, setNewRoomTemp] = useState(0);
   // pupil = "pupil changed inside";
 
