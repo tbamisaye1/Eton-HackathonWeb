@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import AppText from "../components/AppText";
 import { fakeData } from "../dataProviders/fakePicoData";
 // import {Formik}
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik } from "formik";
 import { logToConsole } from "react-native/Libraries/Utilities/RCTLog";
+import { UserContext } from "../Contexts/UserContext";
 
 export default function HomePage(props) {
   // var
@@ -16,6 +17,7 @@ export default function HomePage(props) {
   var [targetRoomTemp, setTargetRoomTemp] = useState(data.targetTemp);
   var [newRoomTemp, setNewRoomTemp] = useState(0);
   // pupil = "pupil changed inside";
+  const { user, setUser } = useContext(UserContext);
 
   async function sendData() {
     try {
@@ -41,7 +43,7 @@ export default function HomePage(props) {
     <View style={styles.screen}>
       <View style={styles.headerBar}>
         <View style={styles.headerLeft}>
-          <Text style={{ fontSize: 30 }}> Student: {pupil}</Text>
+          <Text style={{ fontSize: 30 }}> Student: {user}</Text>
         </View>
         <View style={styles.headerRight}>
           <Text style={{ fontSize: 30 }}> Room: {roomNo}</Text>
