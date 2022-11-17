@@ -11,4 +11,7 @@ export const users = [
     targetTemperature: 18,
     currentTemperature: 22,
   },
+  {
+    username: "prototype",
+  },
 ];

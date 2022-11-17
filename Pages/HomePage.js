@@ -54,9 +54,9 @@ export default function HomePage(props) {
           targetTemperature: targetTemperature,
         }),
       });
-      alert(
-        "Great Success, it didnt fail on send (dunno if it actually sent the data to the right place tho)"
-      );
+      // alert(
+      //   "Great Success, it didnt fail on send (dunno if it actually sent the data to the right place tho)"
+      // );
     } catch (e) {
       alert("Unfortunately something went wrong. Retry or Try Again later");
     }

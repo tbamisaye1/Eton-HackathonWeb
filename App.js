@@ -19,6 +19,7 @@ export default function App() {
         <Stack.Navigator
           screenOptions={{
             headerShown: false,
+            // headerTitle: "Radiaction",
           }}
         >
           <Stack.Screen name="Login" component={LoginPage} />
