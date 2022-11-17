@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/core";
 import { Formik } from "formik";
-import React, { useContext, useState } from "react";
+import React, { useContext, useStat, useEffect } from "react";
 import { View, StyleSheet, Text, Button, Alert } from "react-native";
 import { TextInput } from "react-native-web";
 import { UserContext } from "../Contexts/UserContext";
@@ -11,9 +11,25 @@ import { users } from "../dataProviders/fakeUsers";
 // import { users } from "../dataProviders/fakeUsers";
 
 function LoginPage({ navigation }) {
+  const apiBaseUrl = "https://eton-hackathon-backend.herokuapp.com/";
+  var data = {};
+
   const allUsers = users;
   const { user, setUser } = useContext(UserContext);
   var foundUser = false;
+  async function receiveData() {
+    const resp = await fetch(apiBaseUrl + "api/data/get-current-temperature");
+    //replace api address
+    const apiData = await resp.json();
+    setUser(apiData);
+    // setData(data);
+    // put in the addres here
+    // data = fakeData;
+  }
+
+  useEffect(() => {
+    receiveData();
+  });
   //   const navigation = useNavigation;
 
   return (
@@ -28,7 +44,11 @@ function LoginPage({ navigation }) {
         onSubmit={(values) => {
           allUsers.forEach((userVar) => {
             if (values.username == userVar.username) {
-              setUser(userVar);
+              // ;
+              // setUser(receiveData());
+              // while (user == null) {
+              //   foundUser = false;
+              // }
               foundUser = true;
 
               navigation.navigate("Home");

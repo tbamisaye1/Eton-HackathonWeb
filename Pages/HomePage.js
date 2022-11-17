@@ -9,6 +9,7 @@ import { logToConsole } from "react-native/Libraries/Utilities/RCTLog";
 import { UserContext } from "../Contexts/UserContext";
 
 export default function HomePage(props) {
+  const apiBaseUrl = "https://eton-hackathon-backend.herokuapp.com/";
   var data = {};
   const { user, setUser } = useContext(UserContext);
   var [pupil, setPupil] = useState(user);
@@ -17,41 +18,59 @@ export default function HomePage(props) {
   var [targetcurrentTemperature, setTargetcurrentTemperature] = useState(
     data.targetTemp
   );
-  var [targetTemperature, settargetTemperature] = useState(0);
+  var [targetTemperature, settargetTemperature] = useState(
+    data.targetTemperature
+  );
   // pupil = "pupil changed inside";
-  useEffect(() => {
-    receiveData();
-  });
+  // useEffect(() => {
+  //   receiveData();
+  // });
   async function sendData() {
     try {
-      await fetch("https://webhook.site/b815d5d1-7adf-405d-b628-31b27154d669", {
-        // replace the address in the webhook function
-        method: "post",
-        mode: "no-cors",
+      // await fetch(apiBaseUrl + "/api/data/store-initial-data", {
+      //   // fake URL: https://webhook.site/b815d5d1-7adf-405d-b628-31b27154d669
+      //   // replace the address in the webhook function
+      //   method: "post",
+      //   mode: "no-cors",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-Type": "appliction/json",
+      //   },
+      //   body: JSON.stringify({
+      //     username: user.username,
+      //     roomNumber: user.roomNumber,
+      //     targetTemperature: targetTemperature,
+      //   }),
+      // });
+      await fetch(apiBaseUrl + "api/data/update-target-temperature", {
+        method: "POST",
         headers: {
           Accept: "application/json",
-          "Content-Type": "appliction/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           username: user.username,
+          // roomNumber: user.roomNumber,
           targetTemperature: targetTemperature,
         }),
       });
+      alert(
+        "Great Success, it didnt fail on send (dunno if it actually sent the data to the right place tho)"
+      );
     } catch (e) {
       alert("Unfortunately something went wrong. Retry or Try Again later");
     }
   }
 
-  async function receiveData() {
-    // const resp = await fetch("https://api.sampleapis.com/coffee/hot");
-    //replace api address
-    // const apiData = await resp.json();
-    // data = setData
-    // setData(data);
-    // setLoading(false);
-    // put in the addres here
-    data = fakeData;
-  }
+  // async function receiveData() {
+  //   const resp = await fetch(apiBaseUrl + "api/data/get-current-temperature");
+  //   //replace api address
+  //   const apiData = await resp.json();
+  //   data = apiData;
+  //   // setData(data);
+  //   // put in the addres here
+  //   // data = fakeData;
+  // }
 
   return (
     <View style={styles.screen}>
@@ -66,7 +85,8 @@ export default function HomePage(props) {
       <View style={[styles.infoContainer, {}]}>
         <View style={styles.tempHeader}>
           <Text style={styles.bigTempText}>
-            Current: {user.currentTemperature}°C
+            {/* Current: {data.currentTemperature}°C */}
+            Current Room Temperature: {user.currentTemperature}
           </Text>
         </View>
       </View>
